@@ -4,10 +4,10 @@ import numpy as np
 import moviepy.editor as mpy
 import random
 import torch
-from scipy.misc import toimage
 from tqdm import tqdm
 from pytorch_pretrained_biggan import (BigGAN, one_hot_from_names, truncated_noise_sample,
                                        save_as_images, display_in_terminal)
+from PIL import Image
 
 #get input arguments
 parser = argparse.ArgumentParser()
@@ -381,13 +381,12 @@ for i in tqdm(range(frame_lim)):
 
     #convert to image array and add to frames
     for out in output_cpu:    
-        im=np.array(toimage(out))
-        frames.append(im)
-        
+        im = Image.fromarray((255 * (out.transpose(1, 2, 0) - out.min()) / (out.max() - out.min())).astype(np.uint8))
+        frames.append(np.array(im))
+
+
     #empty cuda cache
     torch.cuda.empty_cache()
-
-
 
 #Save video  
 aud = mpy.AudioFileClip(song, fps = 44100) 
@@ -398,6 +397,7 @@ if args.duration:
 clip = mpy.ImageSequenceClip(frames, fps=22050/frame_length)
 clip = clip.set_audio(aud)
 clip.write_videofile(outname,audio_codec='aac')
+
 
 
 
