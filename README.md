@@ -5,6 +5,8 @@ The Deep Music Visualizer uses BigGAN (Brock et al., 2018), a generative neural 
 
 More examples: https://www.instagram.com/deep_music_visualizer/
 
+The original project is by the user msieg, and all credit goes to them. This version works properly with the latest versions of the requirements.
+
 ## Installation
 
 This repo has been tested on Python3
@@ -12,9 +14,19 @@ This repo has been tested on Python3
 Assuming you have python installed, open terminal and run these commands:
 
 ```bash
-git clone https://github.com/msieg/deep-music-visualizer.git
+git clone https://github.com/shahwas/deep-music-visualizer.git
 cd deep-music-visualizer
 pip install -r requirements.txt
+
+pip install imageio-ffmpeg
+pip install pytorch-pretrained-biggan
+pip install moviepy
+pip install scipy
+pip install numpy --upgrade
+
+pip install --upgrade moviepy
+pip install --upgrade imageio-ffmpeg
+pip install --upgrade numba
 ```
 
 If you are on linux, you may also need to run:
